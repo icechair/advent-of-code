@@ -1,0 +1,1 @@
+use aoc::Solution;
