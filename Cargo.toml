@@ -12,3 +12,4 @@ path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4.5.6", features = ["cargo"] }
+md5 = "0.7.0"
