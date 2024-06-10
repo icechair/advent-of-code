@@ -4,25 +4,42 @@ use crate::solutions;
 use aoc::grid::{Point, EAST, NORTH, SOUTH, WEST};
 pub struct Solution;
 
+fn make_move(p: Point, c: char) -> Point {
+    p + match c {
+        '^' => NORTH,
+        '>' => EAST,
+        'v' => SOUTH,
+        '<' => WEST,
+        _ => Point::new(0, 0),
+    }
+}
+
 impl solutions::Solver for Solution {
     fn part1(&self, input: &str) -> String {
         let mut grid: HashSet<Point> = HashSet::new();
         let mut pos = Point::new(0, 0);
         grid.insert(pos);
         for c in input.chars() {
-            pos += match c {
-                '^' => NORTH,
-                '>' => EAST,
-                'v' => SOUTH,
-                '<' => WEST,
-                _ => Point::new(0, 0),
-            };
+            pos = make_move(pos, c);
             grid.insert(pos);
         }
         return format!("{}", grid.len());
     }
-    fn part2(&self, _input: &str) -> String {
-        return format!("2");
+    fn part2(&self, input: &str) -> String {
+        let mut grid: HashSet<Point> = HashSet::new();
+        let mut pos_santa = Point::new(0, 0);
+        let mut pos_robo = Point::new(0, 0);
+        grid.insert(pos_santa);
+        for (i, c) in input.chars().enumerate() {
+            if i % 2 == 0 {
+                pos_santa = make_move(pos_santa, c);
+                grid.insert(pos_santa);
+            } else {
+                pos_robo = make_move(pos_robo, c);
+                grid.insert(pos_robo);
+            }
+        }
+        return format!("{}", grid.len());
     }
 }
 
@@ -44,6 +61,8 @@ mod tests {
     fn test_part2() {
         let s = Solution;
         let solver: &dyn Solver = &s;
-        assert_eq!(solver.part2(""), "2");
+        assert_eq!(solver.part2("^v"), "3");
+        assert_eq!(solver.part2("^>v<"), "3");
+        assert_eq!(solver.part2("^v^v^v^v^v"), "11");
     }
 }
