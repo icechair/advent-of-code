@@ -2,7 +2,7 @@ use std::env;
 use std::fs;
 use std::path::PathBuf;
 
-use aoc;
+mod solutions;
 use clap;
 
 fn main() {
@@ -31,6 +31,5 @@ fn main() {
     let input_filename = matches.get_one::<PathBuf>("input").unwrap();
     let input = fs::read_to_string(input_filename).unwrap();
 
-    let solutions = aoc::Solutions::new();
-    solutions.solve(*day, *part, &input);
+    println!("{}", solutions::solve(*day, *part, &input));
 }
