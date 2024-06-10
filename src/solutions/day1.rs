@@ -13,6 +13,7 @@ impl solutions::Solver for Solution {
         }
         return format!("{}", floor);
     }
+
     fn part2(&self, input: &str) -> String {
         let mut floor = 0;
         let mut n = 0;
