@@ -13,6 +13,18 @@ fn line_to_dimensions(line: &str) -> (usize, usize, usize) {
     return (l, w, h);
 }
 
+fn perimeter(l: usize, w: usize, h: usize) -> usize {
+    let a = usize::min(l, w);
+    let a = usize::min(a, h);
+    let b = match a {
+        x if x == l => usize::min(w, h),
+        x if x == w => usize::min(l, h),
+        x if x == h => usize::min(w, l),
+        _ => unreachable!(),
+    };
+    return 2 * a + 2 * b;
+}
+
 impl solutions::Solver for Solution {
     fn part1(&self, input: &str) -> String {
         let mut area = 0;
@@ -24,8 +36,14 @@ impl solutions::Solver for Solution {
         }
         return format!("{}", area);
     }
-    fn part2(&self, _input: &str) -> String {
-        return format!("2");
+    fn part2(&self, input: &str) -> String {
+        let mut ribbon = 0;
+        for line in input.lines() {
+            let (l, w, h) = line_to_dimensions(line);
+            let peri = perimeter(l, w, h);
+            ribbon += peri + (w * l * h);
+        }
+        return format!("{}", ribbon);
     }
 }
 
@@ -46,6 +64,7 @@ mod tests {
     fn test_part2() {
         let s = Solution;
         let solver: &dyn Solver = &s;
-        assert_eq!(solver.part2(""), "2");
+        assert_eq!(solver.part2("2x3x4"), "34");
+        assert_eq!(solver.part2("1x1x10"), "14");
     }
 }
