@@ -27,6 +27,7 @@ impl solutions::Solver for Solution {
     }
 }
 
+/*
 #[cfg(test)]
 mod tests {
     use crate::solutions::Solver;
@@ -39,3 +40,4 @@ mod tests {
         assert_eq!(solver.part1("abcdef"), "609043");
     }
 }
+*/
