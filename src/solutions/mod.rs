@@ -4,6 +4,7 @@ mod day3;
 mod day4;
 mod day5;
 mod day6;
+mod day7;
 pub trait Solver {
     fn part1(&self, input: &str) -> String;
     fn part2(&self, input: &str) -> String;
@@ -17,6 +18,7 @@ fn get_solver(day: usize) -> Box<dyn Solver> {
         4 => Box::new(day4::Solution),
         5 => Box::new(day5::Solution),
         6 => Box::new(day6::Solution),
+        7 => Box::new(day7::Solution),
         _ => unimplemented!(),
     }
 }
