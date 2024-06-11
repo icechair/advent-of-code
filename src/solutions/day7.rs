@@ -198,6 +198,12 @@ impl<'a> ConnectionMap<'a> {
             //println!("\ttable: {:?}", table); //, {:?}, {:?}")
         }
     }
+
+    pub fn update_wire(&mut self, wire: &'a str, value: u16) {
+        self.map
+            .entry(wire.to_string())
+            .and_modify(|x| *x = Gate::Pipe(Wire::Input(value), wire));
+    }
 }
 
 impl solutions::Solver for Solution {
@@ -206,14 +212,16 @@ impl solutions::Solver for Solution {
 
         return format!("{}", map.signal_strength("a"));
     }
-    fn part2(&self, _input: &str) -> String {
-        return format!("2");
+    fn part2(&self, input: &str) -> String {
+        let mut map = ConnectionMap::from_text(input);
+        let signal_a = map.signal_strength("a");
+        map.update_wire("b", signal_a);
+        return format!("{}", map.signal_strength("a"));
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::solutions::Solver;
 
     use super::*;
     #[test]
@@ -237,12 +245,5 @@ i -> j",
         assert_eq!(map.signal_strength("h"), 65412);
         assert_eq!(map.signal_strength("i"), 65079);
         assert_eq!(map.signal_strength("j"), 65079);
-    }
-
-    #[test]
-    fn test_part2() {
-        let s = Solution;
-        let solver: &dyn Solver = &s;
-        assert_eq!(solver.part2(""), "2");
     }
 }
