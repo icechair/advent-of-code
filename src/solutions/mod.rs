@@ -1,4 +1,5 @@
 mod day1;
+mod day10;
 mod day2;
 mod day3;
 mod day4;
@@ -23,6 +24,7 @@ fn get_solver(day: usize) -> Box<dyn Solver> {
         7 => Box::new(day7::Solution),
         8 => Box::new(day8::Solution),
         9 => Box::new(day9::Solution),
+        10 => Box::new(day10::Solution),
         _ => unimplemented!(),
     }
 }
