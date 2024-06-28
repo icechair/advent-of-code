@@ -60,11 +60,4 @@ mod tests {
         assert_eq!(look_and_say("1211"), format!("111221"));
         assert_eq!(look_and_say("111221"), format!("312211"));
     }
-
-    #[test]
-    fn test_part2() {
-        let s = Solution;
-        let solver: &dyn Solver = &s;
-        assert_eq!(solver.part2(""), "2");
-    }
 }
